@@ -46,6 +46,7 @@ def postNew():
             subject = form.subject.data,
             content = form.content.data,
             author = current_user.id,
+            Mypnumber = form.Mypnumber.data,
             # This sets the modifydate to the current datetime.
             modifydate = dt.datetime.utcnow
         )
@@ -91,12 +92,14 @@ def postEdit(postID):
         editPost.update(
             subject = form.subject.data,
             content = form.content.data,
+            Mypnumber = form.Mypnumber.data,
             modifydate = dt.datetime.utcnow
         )
         return redirect(url_for('post',postID=postID))
 
     form.subject.data = editPost.subject
     form.content.data = editPost.content
+    form.Mypnumber.data = editPost.Mypnumber
 
     return render_template('postform.html',form=form)
 
@@ -138,6 +141,7 @@ def commentEdit(commentID):
 @app.route('/comment/delete/<commentID>')
 @login_required
 def commentDelete(commentID): 
+
     deleteComment = Comment.objects.get(id=commentID)
     deleteComment.delete()
     flash('The comments was deleted.')

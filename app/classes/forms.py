@@ -2,6 +2,7 @@
 # and users fill them out.  Each form is an instance of of a class. Forms are managed by the 
 # Flask-WTForms library.
 
+from xmlrpc.client import DateTime
 from flask.app import Flask
 from flask import flash
 from flask_wtf import FlaskForm
@@ -57,12 +58,14 @@ class ProfileForm(FlaskForm):
     #email = StringField('Email', validators=[DataRequired(), Email()])
     fname = StringField('First Name', validators=[DataRequired()])
     lname = StringField('Last Name', validators=[DataRequired()]) 
-    image = FileField("Image") 
+    image = FileField("Image")
+    role = SelectField('Role',choices=[("Teacher","Teacher"),("Student","Student")])
+    bDay = StringField("birthday", validators=[DataRequired()])
     submit = SubmitField('Post')
-
 class PostForm(FlaskForm):
     subject = StringField('Subject', validators=[DataRequired()])
     content = TextAreaField('Post', validators=[DataRequired()])
+    Mypnumber = StringField('phone number',validators=[DataRequired()])
     submit = SubmitField('Post')
 
 class CommentForm(FlaskForm):
